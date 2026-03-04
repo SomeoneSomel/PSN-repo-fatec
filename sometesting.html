@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>thingy lol</title>
+</head>
+<body>
+    <header>
+        <img src="funny.webp" alt="funny woman shooting a fish bc they are boring" width="2000" height="300">
+        <div style="float:right">
+            <h1>indeed</h1>
+        </div>
+        <h1>very funny web page</h1>
+        <input type="text" id="myInput" placeholder="lil text over here">
+        <button onclick="showAlert()">do the funny</button>
+        <dialog open>im too lazy to do well done things  </dialog>
+    </header>
+</body>
+    <script>
+        function showAlert() {
+            // 1. Get a reference to the input element by its ID
+            const inputElement = document.getElementById('myInput');
+            
+            // 2. Get the value entered by the user
+            const inputValue = inputElement.value;
+            
+            // 3. Display the value in an alert box
+            alert('u typed "' + inputValue + '"?');
+            }
+    </script>
+</html>
