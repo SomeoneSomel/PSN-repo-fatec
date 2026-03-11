@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula4</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        let nota1 = parseFloat(prompt('informe a primeira nota:'))
+        let nota2 = parseFloat(prompt('informe a segunda nota:'))
+        if (isNaN(nota1) || isNaN(nota2) ) {
+            document.write('informe apenas numeros')
+        } else {
+            let media = (nota1 + nota2) / 2
+            document.write(`A média é ${media}`)
+        }
+        document.write('<br>')
+        let cidade = prompt('informe uma cidade:')
+        cidade = cidade.toLowerCase()
+
+       /* if (cidade == 'taquaritinga') {
+            document.write(`${cidade} é conhecida pelo seu carnaval.`)
+        } else if (cidade == 'monte alto') {
+            document.write(`${cidade} é conhecida pelo Museu.`)
+        } else if (cidade == 'matao' || cidade == 'matão') {
+            document.write(`${cidade} é conhecida por suas industrias.`)
+        } else if (cidade == 'dobrada' || cidade == 'guariroba') {
+            document.write(`${cidade} é conhecida por sua festa.`)
+        } else {
+            document.write(`a ${cidade} não está ainda em nosso banco de dados.`)
+        } */
+        switch (cidade) {
+            case 'taquaritinga':
+                document.write(`${cidade} é conhecida pelo seu carnaval.`)
+                break
+            case 'monte alto':
+                document.write(`${cidade} é conhecida pelo Museu.`)
+                break
+            case 'matao':
+            case 'matão':
+                document.write(`${cidade} é conhecida por suas industrias.`)
+                break
+            case 'dobrada':
+            case 'guariroba':
+                document.write(`${cidade} é conhecida por sua festa.`)
+                break
+            default:
+                document.write(`a ${cidade} não está ainda em nosso banco de dados.`)
+        }
+        document.write('<br>')
+        document.write((cidade == 'taquaritinga' || cidade == 'matao' || cidade == 'matão') ? 'possui fatec' : 'possui outra instituição')
+
+    </script>
+</body>
+</html>
