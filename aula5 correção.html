@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correção</title>
+</head>
+<body>
+    <script>
+         let n1 = parseFloat(prompt('informe o primeiro numero:'))
+        let n2 = parseFloat(prompt('informe o segundo numero:'))
+        let op = prompt('qual a operação realizada? + - * /')
+
+         if (isNaN(n1) || isNaN(n2) ) {
+            document.write('Informe apenas numeros!')
+        } else 
+        {
+            switch (op) {
+                case '/':
+                    resultado = (n2 > 0) ? n1 / n2 : "Numero 2 é 0, impossivel dividir!"
+                    break
+                case '*':
+                    resultado = n1 * n2
+                    break
+                case '+':
+                    result = n1 + n2
+                    break
+                case '-':
+                    result = n1 - n2
+                    break
+                default:
+                    document.write(`Operação inválida!`)
+            }
+        }
+        document.write(resultado)
+
+    </script>
+    
+</body>
+</html>

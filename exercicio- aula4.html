@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>calculadora 2000</title>
 </head>
 <body>
     <script type = 'text/javascript'>
         let n1 = parseFloat(prompt('informe o primeiro numero:'))
-        let n2 = parseFloat(prompt('informe a segunda numero:'))
+        let n2 = parseFloat(prompt('informe o segundo numero:'))
         let op = prompt('qual a operação realizada?\nOpções: Divisão, Multiplicação, Soma, Subtração.')
         op = op.toLowerCase()
         if (isNaN(n1) || isNaN(n2) ) {
@@ -36,9 +36,10 @@
                     document.write(`o resultado é ${result}`)
                     break
                 default:
-                    document.write(`você não digitou uma operação ou escreveu errado. foi escrito ${op}`)
+                    document.write(`você não digitou uma operação ou escreveu errado. foi escrito "${op}"`)
             }
         }
+        
     </script>
 </body>
 </html>
