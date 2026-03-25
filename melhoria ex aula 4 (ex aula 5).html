@@ -19,7 +19,9 @@
             op = prompt('qual a operação realizada?\nOpções: Divisão, Multiplicação, Soma, Subtração.')
             op = op.toLowerCase()
                 if (isNaN(n1) || isNaN(n2) ) {
-                    document.write('informe apenas numeros')
+                   answer = prompt(`você não digitou um numero. deseja tentar novamente?`)
+                    answer = answer.toLowerCase()
+                    document.write("digite somente numeros.")
                 } else {
                     switch (op) {
                         case 'divisão':
@@ -45,9 +47,10 @@
                         default:
                             document.write(`você não digitou uma operação ou escreveu errado. foi escrito "${op}"`)
                     }
+                    answer = prompt(`o resultado foi ${result}. \ndeseja fazer a operação novamente?`)
+                    answer = answer.toLowerCase()    
                 }
-            answer = prompt(`o resultado foi ${result}. \ndeseja fazer a operação novamente?`)
-            answer = answer.toLowerCase()
+              
         }
     </script>
 </body>
