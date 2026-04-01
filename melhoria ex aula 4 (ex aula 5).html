@@ -11,6 +11,8 @@
         let n2 = 0
         let op = ''
         answer = 'sim'
+        op2 = 'nul'
+        status = 'no'
         
        
         while (answer == 'sim'){
@@ -21,34 +23,57 @@
                 if (isNaN(n1) || isNaN(n2) ) {
                    answer = prompt(`você não digitou um numero. deseja tentar novamente?`)
                     answer = answer.toLowerCase()
-                    document.write("digite somente numeros.")
+                    document.write("Erro durante operação: ")
+                    document.write("\ndigitou letras no lugar de numeros.\n")
+                    document.write("<br>")
                 } else {
                     switch (op) {
                         case 'divisão':
                             if (n2 == 0) {
-                                document.write('impossivel dividir por zero')
+                                document.write("Erro durante operação:")
+                                document.write('\nimpossivel dividir por zero\n')
+                                document.write("<br>")
+                                status = 'divzero'
                             }else {
                                 result = n1 / n2
-                                document.write(`o resultado é ${result}`)
+                                op2 = '/'
+                                status = 'ok'
                             }
                             break
                         case 'multiplicação':
                             result = n1 * n2
-                            document.write(`o resultado é ${result}`)
+                            op2 = '*'
+                            status = 'ok'
                             break
                         case 'soma':
                             result = n1 + n2
-                            document.write(`o resultado é ${result}`)
+                            op2 = '+'
+                            status = 'ok'
                             break
                         case 'subtração':
                             result = n1 - n2
-                            document.write(`o resultado é ${result}`)
+                            op2 = '-'
+                            status = 'ok'
                             break
                         default:
-                            document.write(`você não digitou uma operação ou escreveu errado. foi escrito "${op}"`)
+                            status = 'no'
                     }
-                    answer = prompt(`o resultado foi ${result}. \ndeseja fazer a operação novamente?`)
-                    answer = answer.toLowerCase()    
+                    if (status == 'ok'){
+                        document.write(`${n1} ${op2} ${n2}:`)
+                        document.write(`\no resultado é ${result}\n`)
+                        document.write("<br>")
+                    }
+                    if (status == 'ok') {
+                        answer = prompt(`o resultado foi ${result}. \ndeseja fazer a operação novamente?`)
+                        answer = answer.toLowerCase()
+                    }else if(status == 'divzero') {
+                        answer = prompt('impossivel dividir por zero\ndeseja fazer a operação novamente?')
+                        answer = answer.toLowerCase()
+                    }
+                    else{
+                        answer = prompt(`você não digitou uma operação ou escreveu errado. foi escrito "${op}". \ndeseja tentar a operação novamente?`)
+                        answer = answer.toLowerCase()
+                    }
                 }
               
         }

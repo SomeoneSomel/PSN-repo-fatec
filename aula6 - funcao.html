@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aula 6</title>
+</head>
+    <script type="text/javascript">
+        let cotacaoDolar = 5.19
+        /*let valor1 = (100 / cotacaoDolar).toFixed(2).replace('.',',')
+        let valor2 = (200 / cotacaoDolar).toFixed(2).replace('.',',')
+        let valor3 = (500 / cotacaoDolar).toFixed(2).replace('.',',')
+        let valor4 = (1000 / cotacaoDolar).toFixed(2).replace('.',',')
+        document.write(`${valor1} <br>`)
+        document.write(`${valor2} <br>`)
+        document.write(`${valor3} <br>`)
+        document.write(`${valor4} <br>`)*/
+
+        function converterReaisParaDolares(valor, dolar) {
+            return 'U$$' + (valor / dolar).toFixed(2).replace('.',',') + '<br>'
+        }
+        function converterRealDolar(valor, dolar) {
+            document.write('U$$' + (valor / dolar).toFixed(2).replace('.',',') + '<br>')
+        }
+        document.write(converterReaisParaDolares(10000, cotacaoDolar))
+        document.write(converterReaisParaDolares(12000, cotacaoDolar))
+        document.write(converterReaisParaDolares(15000, cotacaoDolar))
+        
+        
+        converterRealDolar(10, cotacaoDolar)
+        converterRealDolar(50, cotacaoDolar)
+    </script>
+<body>
+    
+</body>
+</html>

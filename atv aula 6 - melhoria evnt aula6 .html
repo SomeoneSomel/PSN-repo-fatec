@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function converterRealParaDolar(valor, dolar) {
+            return 'U$$' + (valor / dolar).toFixed(2).replace('.',',') + '<br>'
+        }
+        function converterDolarParaReal(valor, dolar) {
+            return 'R$' + (valor * dolar).toFixed(2).replace('.',',') + '<br>'
+        }
+        window.onload = function() {
+            document.getElementById('btnConverter').onclick = function(){
+                let dolar = document.getElementById('dolar').value
+                let valor = document.getElementById('valor').value
+                let tipoC = document.getElementById('tipo').value
+                if (tipoC == '1'){
+                    resultado = converterRealParaDolar(valor, dolar)
+                }
+                else{
+                    resultado = converterDolarParaReal(valor, dolar)
+                }
+                document.getElementById('resultado').innerHTML = 'Resultado: ' + resultado
+
+            }
+        }
+  
+    
+    </script>
+</head>
+<body>
+    <h1>Conversão Real / Dólar 2.0 Ultra Premium Deluxe Edition</h1>
+    <b>Dólar: </b><input type="number" id="dolar" value="5.19">
+    <br>
+    <b>Real: </b><input type="number" id="valor">
+    <br><br>
+    <!-- <button onclick="alert('ok')">Converter</button> -->
+    <select id="tipo"> 
+        <option value="1">Real para Dolar</option>
+        <option value="2">Dolar para Real</option>
+    </select> 
+    <button id="btnConverter">Converter</button>
+    <p><b id="resultado">Resultado: </b></p>
+</body>
+</html>
