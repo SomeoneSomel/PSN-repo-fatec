@@ -1,0 +1,38 @@
+
+header {
+    background:rgb(159, 159, 202);
+    height:54px;
+    padding:1px
+}
+nav {
+    background: rgb(201, 201, 255);
+    height: 20px;
+    padding-left:30px
+}
+main {
+    background: rgb(201, 201, 255);
+    height: 50px
+}
+footer {
+    background: rgb(159, 159, 202);
+    height: 17px;
+    text-align: center
+}
+a {
+    text-decoration:none;
+    display:inline-blocks;
+    padding:5px 0 0 0;
+}
+a:visited {
+    color:blue;
+}
+a:hover {
+    color:rgb(120, 0, 233);
+}
+.texto {
+    font-family: 'Courier New', Courier, monospace;
+    color: blue
+}
+#rodape {
+    color:rgb(95, 33, 33)
+}
