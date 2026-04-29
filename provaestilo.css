@@ -1,0 +1,28 @@
+header {
+    height:130px;
+    padding:1px;
+    margin: 0;
+}
+body {
+    background: rgb(204, 195, 177);
+    margin: 0;
+    text-align: center;
+}
+h1, h2, h3, h4 {
+    padding:3px;
+    font-family: "Arial";
+}
+#btncalc {
+    padding: 13px 40px;
+}
+input {
+    padding: 5px 30px
+}
+b, p {
+    padding: 1px;
+    margin: 0px;
+    font-family: "Arial";
+}
+#titulo {
+    color: rgb(1, 131, 23);
+}
