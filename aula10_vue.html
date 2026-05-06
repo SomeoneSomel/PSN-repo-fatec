@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Vue.js</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="vue.js"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <h1>Lista de Compras</h1>
+        <form action="#" method="post" @submit.prevent="adicionar()">
+            <label for="item">Informe um produto:</label>
+            <input type="text" class="form-control mb-3" v-model="produto"
+                @keypress.enter="adicionar()" v-bind:title="mensagem">
+                <div v-if="produto == ''">
+                    <b>Nenhum produto informado</b>
+                </div>
+                <div v-else>
+                    <b>Pressione ENTER para adicionar!</b>
+                </div>
+            <button class="btn btn-primary">Adicionar</button>
+        </form>     
+        <ul>
+            <li v-for="item in listaProdutos">
+                {{ item }}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        let app = new Vue({
+            el: '#app',
+            data: {
+                produto: '',
+                listaProdutos: [],
+                mensagem: '',
+
+            },
+            methods: {
+                adicionar: function() {
+                    if (this.produto !=  '') {
+                    this.listaProdutos.push(this.produto)
+                    }
+                    this.produto = ''
+                }
+            }
+        })
+    </script>
+</body>
+</html>
