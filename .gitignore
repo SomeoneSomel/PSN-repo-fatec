@@ -1,2 +1,5 @@
 bootstrap
 vue.js
+*.jpg
+*.png
+*.webp

@@ -14,16 +14,21 @@
         <div class="row">
             <div class="col-md-6">
                 <h1>Cadastro de Livro</h1>
-                <form action="#" method="post">
+                <form action="#" method="post" @submit.prevent="salvar()">
                     <label for="codigo">Código:</label>
-                    <input type="number" class="form-control mb-2">
+                    <input type="number" class="form-control mb-2" v-model="codigo">
                     <label for="titulo">Título:</label>
-                    <input type="text" class="form-control mb-2">
+                    <input type="text" class="form-control mb-2" v-model="titulo">
                     <label for="editora">Editora:</label>
-                    <input type="text" class="form-control mb-2">
+                    <input type="text" class="form-control mb-2" v-model="editora">
                     <label for="ano">Ano de publicação:</label>
-                    <input type="number" class="form-control mb-2">
-                    <button calss="btn btn-primary">Salvar</button>
+                    <input type="number" class="form-control mb-2" v-model="ano">
+                    <div v-if="verificar()">
+                        <button class="btn btn-primary">Salvar</button>
+                    </div>
+                    <div v-else>
+                        <button class="btn btn-primary" disabled>Salvar</button>
+                    </div>
                 </form>
             </div>
             <div class="col-md-6">
@@ -35,10 +40,23 @@
                             <th>Título</th>
                             <th>Editora</th>
                             <th>Ano</th>
+                            <th>Alterar</th>
+                            <th>Excluir</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        <tr v-for="(livro, posicao) in listaLivros">
+                            <td>{{ livro.codigo }}</td>
+                            <td>{{ livro.titulo }}</td>
+                            <td>{{ livro.editora }}</td>
+                            <td>{{ livro.ano }}</td>
+                            <td>
+                                <a href="#" class="btn btn-warning" @click="alterar(posicao)">Alterar</a>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-danger">Excluir</a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -53,6 +71,41 @@
                 this.ano = ano   
             }
         }
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                codigo: '',
+                titulo: '',
+                editora: '',
+                ano: '',
+                listaLivros: [],
+
+            },
+            methods: {
+                salvar: function() {
+                    let livro = new Livro(this.codigo, this.titulo, this.editora, this.ano)
+                    this.listaLivros.push(livro)
+                    this.limpar()
+                },
+                verificar: function() {
+                    return this.codigo != '' && this.titulo != '' && this.editora != '' && this.ano != ''
+                },
+                limpar: function() {
+                    this.codigo = ''
+                    this.titulo = ''
+                    this.editora= ''
+                    this.ano = ''
+                },
+                alterar: function(posicao) {
+                    this.codigo = this.listaLivros[posicao].codigo
+                    this.titulo = this.listaLivros[posicao].titulo
+                    this.editora = this.listaLivros[posicao].editora
+                    this.ano = this.listaLivros[posicao].ano
+                }
+            }
+        })
+        
     </script>
 </body>
 </html>
