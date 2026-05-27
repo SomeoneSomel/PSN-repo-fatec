@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="pt-br" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
 <body>
     <div id="app" class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <h1>Cadastro de Hardware/Software</h1>
                 <form action="#" method="post" @submit.prevent="salvar()">
                     <label for="codigo">Código:</label>
@@ -27,11 +27,16 @@
                     <input type="date" class="form-control mb-2" v-model="lancamento">
                     <label for="imagem">Imagem(insira link):</label>
                     <input type="text" class="form-control mb-2" v-model="imagem">
-                    
-                    <button class="btn btn-primary">Salvar</button>
+                    <div v-if="verificar()">
+                        <button class="btn btn-primary">Salvar</button>
+                    </div>
+                    <div v-else>
+                        <button class="btn btn-primary" disabled>Salvar</button>
+                    </div>                        
                 </form>
+                <button class="btn btn-primary" @click="test()">Fechar lista</button>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7" v-show="toggled">
                 <h1>Lista de Itens Cadastrados</h1>
                 <table class="table table-striped">
                     <thead>
@@ -42,16 +47,24 @@
                             <th>Tipo</th>
                             <th>Marca</th>
                             <th>Data de Lançamento</th>
+                            <th>Alterar</th>
+                            <th>Excluir</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(livro, posicao) in listaIT">
-                            <td>{{ livro.imagem }}</td>
-                            <td>{{ livro.codigo }}</td>
-                            <td>{{ livro.nome }}</td>
-                            <td>{{ livro.tipo }}</td>
-                            <td>{{ livro.marca }}</td>
-                            <td>{{ livro.lancamento }}</td>
+                        <tr v-for="(it, posicao) in listaIT">
+                            <td><img :src="it.imagem" class="w-75 object-fit-cover" alt="Imagem Produto" ></td>
+                            <td>{{ it.codigo }}</td>
+                            <td>{{ it.nome }}</td>
+                            <td>{{ it.tipo }}</td>
+                            <td>{{ it.marca }}</td>
+                            <td>{{ it.lancamento }}</td>
+                            <td>
+                                <a href="#" class="btn btn-warning" @click="alterar(posicao)">Alterar</a>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-danger" @click="excluir(posicao)">Excluir</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -79,12 +92,54 @@
                 imagem: '',
                 tipo: '',
                 listaIT: [],
-
+                posicao: -1,
+                toggled: true,
             },
             methods: {
                 salvar: function() {
                     let it = new IT(this.codigo, this.nome, this.marca, this.lancamento, this.imagem, this.tipo)
-                    this.listaIT.push(it)
+                    if (this.posicao == -1) {
+                        this.listaIT.push(it)
+                    } else {
+                        Vue.set(this.listaIT, this.posicao, it)
+                    }
+                    this.limpar()
+                },
+                verificar: function() {
+                    return this.codigo != '' && this.nome != '' && this.marca != '' && this.lancamento != '' && this.tipo != ''
+                },
+                limpar: function() {
+                    this.posicao = -1
+                    this.codigo = ''
+                    this.nome = ''
+                    this.marca= ''
+                    this.lancamento = ''
+                    this.tipo = ''
+                    this.imagem = ''
+                },
+                alterar: function(posicao) {
+                    this.posicao = posicao
+                    this.codigo = this.listaIT[posicao].codigo
+                    this.nome = this.listaIT[posicao].nome
+                    this.marca = this.listaIT[posicao].marca
+                    this.tipo = this.listaIT[posicao].tipo
+                    this.lancamento = this.listaIT[posicao].lancamento
+                    this.imagem = this.listaIT[posicao].imagem
+                },
+                excluir: function(posicao) {
+                    if (confirm('Tem certeza que deseja excluir?')) {
+                        this.listaIT.splice(posicao, 1)
+                    }
+                },
+                armazenar: function(){
+                    localStorage.setItem('listaLivros', JSON.stringify(this.listaLivros))
+                },
+                test: function() {
+                    if (toggled == true) {
+                        toggled == false
+                    }else {
+                        toggled == true
+                    }
                 }
             }
         })
