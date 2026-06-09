@@ -6,19 +6,96 @@
     <title>Project</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <script type="text/javascript" src="vue.js">
-        
     </script>
+    <style scoped>
+    body {
+        background-color: #121212; 
+        color: #e0e0e0; 
+    }
+    .mainpage::before {
+        background-image: url(https://img.magnific.com/free-vector/blue-futuristic-networking-technology_53876-100679.jpg?semt=ais_hybrid&w=740&q=80);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        content: ""; 
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        z-index: -1;
+        filter: blur(4px) brightness(0.8);
+        min-height: 100vh
+    }
+    .maindiv {
+        background-color: #1e1e1e;
+        border-radius: 10px; 
+        padding: 20px; 
+    }
+    .btn-primary2 {
+        background-color: #6f42c1; 
+        border: none;
+    }
+    .btn-primary2:hover {
+        background-color: #543293;
+        border: none;
+    }
+    .btn-primary2:disabled {
+        background-color: #6f42c1;
+        border: none;
+    }
+    .btn-primary {
+        background-color: #210c97; 
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #14046a;
+        border: none;
+    }
+    .btn-primary:disabled {
+        background-color: #210c97;
+        border: none;
+    }
+    .btn-secondary {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1000;
+    }
+    .btn-sm {
+        background-color: #271c66;
+    }
+    .btn-sm:hover {
+        background-color: #140e33;
+    }
+    .unsplash:hover{
+        box-shadow: 0 0 15px rgba(111, 66, 193, 0.8);
+        position: relative;
+        transform: scale(1.1);
+    }
+    .maindivunsplash:hover{
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.9);
+        position: relative;
+        transform: scale(1.1);
+    }
+    </style>
 </head>
 <body>
-    <div id="app" class="container">
+    <div id="app" :class="altstyle == true ? 'container mainpage' : 'container body'">
         <div class="row">
-            <div :class="toggled == true ? 'col-md-5' : 'col-md-12'">
+            <div :class="toggled == true ? 'col-md-5 maindiv' : 'col-md-12 maindiv'">
                 <h1>Cadastro de Hardware/Software</h1>
-                <form action="#" method="post" @submit.prevent="salvar()">
+                <form action="#" method="post">
                     <label for="codigo">Código:</label>
-                    <input type="number" class="form-control mb-2" v-model="codigo">
+                    <input type="number" class="form-control mb-2" disabled v-model="codigo">
                     <label for="nome">Nome:</label>
                     <input type="text" class="form-control mb-2"v-model="nome">
+                    <div v-if="nome != ''">
+                        <button class="btn btn-sm" @click.prevent="procurar()">Procurar imagem</button><br>
+                    </div>
+                    <div v-else>
+                        <button class="btn btn-sm" @click.prevent="procurar()" disabled>Procurar imagem</button><br>
+                    </div>
                     <label for="tipo">Tipo:</label>
                     <input type="text" class="form-control mb-2" v-model="tipo">
                     <label for="marca">Marca:</label>
@@ -27,23 +104,45 @@
                     <input type="date" class="form-control mb-2" v-model="lancamento">
                     <label for="imagem">Imagem(insira link):</label>
                     <input type="text" class="form-control mb-2" v-model="imagem">
+                    <div v-show="listUnsplash.length > 0" class="mt-3 p-3 bg-dark rounded border border-secondary">
+                        <label class="text-white mb-2">Escolha uma capa (Clique para selecionar):</label>
+                        
+                        <div class="d-flex flex-wrap gap-2">
+                            <img 
+                                v-for="foto in listUnsplash" 
+                                :key="foto.id" 
+                                :src="foto.urls.small" 
+                                :class="altstyle == true ? 'maindivunsplash' : 'unsplash'" 
+                                style="width: 100px; height: 100px; object-fit: cover; cursor: pointer;"
+                                @click="selimg(foto.urls.regular)"
+                            >
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-2">
                             <div v-if="verificar()">
-                                <button class="btn btn-primary">Salvar</button>
+                                <button :class="altstyle == true ? 'btn btn-primary' : 'btn btn-primary2'" @click.prevent="salvar()">Salvar</button>
                             </div>
                         
                             <div v-else>
-                                <button class="btn btn-primary" disabled>Salvar</button>
+                                <button :class="altstyle == true ? 'btn btn-primary' : 'btn btn-primary2'" @click.prevent="salvar()" disabled>Salvar</button>
                             </div>
                         </div>
                         <div class="col-3">
-                            <button class="btn btn-primary" @click="test()">Fechar lista</button>  
+                            <div v-if="toggled == true">
+                                <button :class="altstyle == true ? 'btn btn-primary' : 'btn btn-primary2'" @click.prevent="test()">Fechar lista</button>  
+                            </div>
+                            <div v-else>
+                                <button :class="altstyle == true ? 'btn btn-primary' : 'btn btn-primary2'" @click.prevent="test()">Abrir lista</button>
+                            </div>
                         </div>
                     </div>
                 </form>
+                <div>
+                    <button class="btn btn-secondary" @click="altstyle = !altstyle">Trocar estilo</button>
+                </div>
             </div>
-            <div class="col-md-7" v-show="toggled">
+            <div class="col-md-7 " v-show="toggled">
                 <h1>Lista de Itens Cadastrados</h1>
                 <table class="table table-striped">
                     <thead>
@@ -60,7 +159,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="(it, posicao) in listaIT">
-                            <td><img :src="it.imagem" class="w-75 object-fit-cover" alt="Imagem Produto" ></td>
+                            <td><img :src="it.imagem" class="w-100 object-fit-cover" alt="Imagem Produto" ></td>
                             <td>{{ it.codigo }}</td>
                             <td>{{ it.nome }}</td>
                             <td>{{ it.tipo }}</td>
@@ -89,10 +188,11 @@
                 this.tipo = tipo
             }
         }
+        
         let app = new Vue({
             el: '#app',
             data: {
-                codigo: '',
+                codigo: 1,
                 nome: '',
                 marca: '',
                 lancamento: '',
@@ -101,30 +201,36 @@
                 listaIT: [],
                 posicao: -1,
                 toggled: true,
+                altstyle: true,
+                listUnsplash: [],
             },
             methods: {
                 salvar: function() {
                     let it = new IT(this.codigo, this.nome, this.marca, this.lancamento, this.imagem, this.tipo)
-                    if (this.posicao == -1) {
-                        this.listaIT.push(it)
-                    } else {
-                        Vue.set(this.listaIT, this.posicao, it)
+                    if(this.nome != '' && this.marca != '' && this.lancamento != '' && this.tipo != '')
+                    {
+                        if (this.posicao == -1) {
+                            this.listaIT.push(it)
+                            this.codigo = this.codigo + 1
+                        } else {
+                            Vue.set(this.listaIT, this.posicao, it)
+                        }
+                        this.armazenar()
+                        this.limpar()
                     }
-                    this.armazenar()
-                    this.limpar()
-                    console.log("isso funciona?")
                 },
                 verificar: function() {
                     return this.codigo != '' && this.nome != '' && this.marca != '' && this.lancamento != '' && this.tipo != ''
                 },
                 limpar: function() {
                     this.posicao = -1
-                    this.codigo = ''
+                    this.codigo = this.codigo
                     this.nome = ''
                     this.marca= ''
                     this.lancamento = ''
                     this.tipo = ''
                     this.imagem = ''
+                    this.listUnsplash = []
                 },
                 alterar: function(posicao) {
                     this.posicao = posicao
@@ -157,8 +263,40 @@
                     let dados = localStorage.getItem('listaIT')
                     if (dados != null) {
                         this.listaIT = JSON.parse(dados)
+                        this.listaIT.forEach(it => {
+                            if (it.codigo >= this.codigo) {
+                                this.codigo = it.codigo + 1
+                            }
+                        });
                     }
                 },
+                procurar: async function() {
+                    if (!this.nome) {
+                        alert("Digite um nome primeiro!");
+                        return;
+                        }
+                    const chave = 'api key here';
+                    const url = `https://api.unsplash.com/search/photos?query=${this.nome}&client_id=${chave}`;
+
+                    try {
+                        const resposta = await fetch(url);
+                        const dados = await resposta.json()
+                            if (dados.results.length > 0) {
+                                this.listUnsplash = dados.results;
+
+                            } else {
+                                alert("Nenhuma imagem encontrada para este nome!");
+                            }
+
+                        } catch (erro) {
+                        console.error("Erro ao buscar a imagem:", erro);
+                        }
+
+                },
+                selimg: function(linkEscolhido) {
+                    this.imagem = linkEscolhido;
+                    this.imagensEncontradas = [];
+                }
             
             },
             created() {
